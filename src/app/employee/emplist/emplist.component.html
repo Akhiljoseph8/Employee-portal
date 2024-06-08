@@ -1,0 +1,66 @@
+<div class="row w-100" style="height: 93vh;">
+    <div class="col-2 bg-dark">
+      <h4 class="text-center mt-4"><a routerLink="/home" class="text-light text-decoration-none">Home</a></h4>
+      <h4 class="text-center mt-4"><a routerLink="/employee" class="text-light text-decoration-none">Employee</a></h4>
+    </div>
+    <div class="col-10">
+       <div class="d-flex justify-content-between mt-3">
+        <h3>Employee List</h3>
+          <a href="employee/addemp" class="btn btn-success">
+            <i class="fa-solid fa-user-plus"></i>
+            Add Employee
+          </a>
+       </div>
+       <div>
+        <h4 class="my-3">{{cdate|date}}</h4>
+      </div>
+        <div class="d-flex justify-content-between">
+         <div class="d-flex">
+             <input type="text" placeholder="search with username" [(ngModel)]="searchKey" class="form-control">
+            <!-- Example single danger button -->
+<div class="btn-group">
+    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      Sort
+    </button>
+    <ul class="dropdown-menu">
+      <li class="dropdown-item" (click)="sortById()">Sort by Id</li>
+      <li class="dropdown-item" (click)="sortUsername()">Sort by Name</li>
+    </ul>
+  </div>
+        </div>
+         <button  class="btn btn-primary" (click)="generatePdf()">Export</button>
+        </div>
+        <table  class="table table-borderd mt-3">
+            <thead>
+                <tr > 
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of employees | search:searchKey">
+                    <td>{{i.id}}</td>
+                    <td>{{i.username}}</td>
+                    <td>{{i.email}}</td>
+                    <td>
+                        <span class="btn btn-success" *ngIf="i.status=='active'; else elsedata">Active</span>
+                        <ng-template #elsedata>
+                            <span class="btn btn-danger">Inactive</span>
+                        </ng-template>
+                    </td>
+                    <td>
+                       <a routerLink="/employee/editemp/{{i.id}}"><i class="fa-solid fa-pen px-3 fa-xl"></i></a> 
+                       <button class="btn" (click)="deleteEmployee(i.id)">
+
+                        <i class="fa-solid fa-trash fa-xl" style="color:red"></i>
+                    </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+       
+    </div>
+  </div>

@@ -1,0 +1,18 @@
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 100%;">
+  <img [src]="profilePicture" class="w-50" *ngIf="!editProfile">
+  <button class="btn btn-link" (click)="onEdit()" *ngIf="!editProfile" >Edit Admin Profile</button>
+  <div *ngIf="editProfile">
+    <form>
+        <label for="ff" class="mx-auto">
+        <input type="file" id="ff" (change)="getFile($event)" style="visibility: hidden;">
+        <img [src]="profilePicture" class="w-50">
+      </label>
+        <input  type="text" class="form-control my-4" [(ngModel)]="adminProfile.email" name="email" placeholder="Enter Email id">
+         <input type="password" class="form-control my-4"  placeholder="Enter Password">
+         <div class="d-flex justify-content-between">
+            <button class="btn btn-success" type="submit" (click)="onUpdate()">Update</button>
+            <button class="btn btn-danger" type="button" (click)="onEdit()">Cancel</button>
+         </div>
+    </form>
+ </div>
+</div>
